@@ -5,12 +5,15 @@ import java.util.regex.Pattern;
 
 public class ValidationUtil {
 
-	public static boolean isValidContact(String value ) {
-		String num=  "(?:\\s+|)((0|(?:(\\+|)91))(?:\\s|-)*(?:(?:\\d(?:\\s|-)*\\d{9})|(?:\\d{2}(?:\\s|-)*\\d{8})|(?:\\d{3}(?:\\s|-)*\\d{7}))|\\d{10})(?:\\s+|)";
-	    Pattern p = Pattern.compile(num);
-	    String  s = String.valueOf(value);
-	    Matcher m = p.matcher(s);
-	    return m.matches();
+   private ValidationUtil() {
+		
+    }
+   
+	public static boolean isValidContact(String contact ) {
+		if(contact.length()>=10) {
+			return true;
+		}
+		return false;
 	} 
 	
 	public static boolean isValidEmailId(String value) {
@@ -20,15 +23,28 @@ public class ValidationUtil {
 		return m.matches();
 	}
 	
-	public static boolean isValidName(String value) {
-		String name= "^(?=.{1,40}$)[a-zA-Z]+(?:[-'\\\\s][a-zA-Z]+)*$ ";
-		Pattern p = Pattern.compile(name);
-		Matcher m = p.matcher(value);
-		return m.matches();
-	}
+	 public static boolean isValidName(String value) {
+	        String regex = "^(?=.{1,25}$)[a-zA-Z]+(?:[-'\\s][a-zA-Z]+)*$";
+	        Pattern p = Pattern.compile(regex);
+	        Matcher m = p.matcher(value);
+	        return m.matches();
+	    }
 	
 	 public static boolean isNullOrEmpty(String value) {
 	        return null == value || value.trim().isEmpty();
 	    }
+
+	public static boolean isNull(int id) {
+		return false;
+	}
+
+	public static String getFormattedString(String value) {
+		 if (value != null) {
+	            return value.trim();
+	        }
+	        return value;
+	    }
+	
+	
 	 
 }

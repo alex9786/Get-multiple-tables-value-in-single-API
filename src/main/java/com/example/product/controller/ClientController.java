@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.product.enumeration.RequestType;
+import com.example.product.dto.ClientDto;
 import com.example.product.entity.Client;
 import com.example.product.response.ResponseGenerator;
 import com.example.product.service.ClientService;
@@ -33,9 +36,9 @@ public class ClientController {
 	ResponseGenerator responseGenerator;
 
 	@PostMapping("/post")
-	public ResponseEntity<?> clientRegistration(@RequestBody Client client) throws Exception {
+	public ResponseEntity<?> clientRegistration(@RequestBody ClientDto request) throws Exception {
 
-		ValidationResult validationResult = clientValidation.validate(client);
+		ValidationResult validationResult = clientValidation.validate(RequestType.POST, request);
 		clientService.saveOrUpdate((Client) (validationResult.getObject()));
 
 		try {
